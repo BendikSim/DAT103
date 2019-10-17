@@ -1,45 +1,40 @@
 section .bss
-num resb 1
+	num resb 1
 
 segment .data
-nl dw 0xa
-nlLen equ $ - nl
-cr equ 13
-lf equ 10
-crlf db cr,lf
-crlfLen equ $ - crlf
+	nl dw 0xa
+	nlLen equ $ - nl
+	cr equ 13
+	lf equ 10
+	crlf db cr,lf
+	crlfLen equ $ - crlf
 
 section .text
 
 global _start
 
 _start:
-mov ecx, 12
-mov eax, 1 ; startverdi = 1
+	mov ecx, 12
+	mov eax, 1 ; startverdi = 1
 
 l1:
-mov ebx, eax
-cmp eax, 9
-jle skriven
-mov ebx, 1
-call skrivtall
-mov ebx, eax
-sub ebx, 10
+	mov ebx, eax
+	cmp eax, 9
+	jle skriven
+	mov ebx, 1
+	call skrivtall
+	mov ebx, eax
+	sub ebx, 10
 
 skriven:
-call skrivtall
-inc eax
-call nylinje
-loop l1
+	call skrivtall
+	inc eax
+	call nylinje
+	loop l1
 
-mov edx,nlLen
-mov ecx,nl
-mov ebx,1
-mov eax,4
-int 80h
-mov ebx,0
-mov eax,1
-int 80h
+	mov ebx,0
+	mov eax,1
+	int 80h
 
 nylinje:
 push edx
